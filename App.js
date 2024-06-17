@@ -4,17 +4,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
-import GetMatches from "./components/get_matches";
 
-import { Provider } from "react-redux";
-import store from "./store/store";
 import Dashboard from './screens/dashboard';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <Provider store={store}>
       <NavigationContainer>
        <Stack.Navigator
           screenOptions={{
@@ -38,7 +34,6 @@ export default function App() {
          
       </Stack.Navigator>
     </NavigationContainer>
-    </Provider>
   );
 }
 

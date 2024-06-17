@@ -8,7 +8,7 @@ function Dashboard(props) {
   const [color, setColor] = useState("Red");
   const [robotNum, setRobotNum] = useState(0);
 
-  const [obstacleCounts, setObstacleCounts] = useState({ "Dance Floor": 0, "Door 1": 0, "Door 2": 0, "Stage": 0 });
+  const [obstacleCounts, setObstacleCounts] = useState({ "Dance Floor": 0, "Door 1": 0, "Door 2": 0, "Stage": 0, "Ramp": 0 });
   const [boogie, setBoogie] = useState(false);
   const [endgameState, setEndgameState] = useState(0);
 
@@ -17,7 +17,7 @@ function Dashboard(props) {
 
   useEffect(() => {
 
-    if (obstacleCounts["Dance Floor"] === 3 && obstacleCounts["Door 1"] === 3 && obstacleCounts["Door 2"] === 3 && obstacleCounts["Stage"] === 3) {
+    if (obstacleCounts["Dance Floor"] === 3 && obstacleCounts["Door 1"] === 3 && obstacleCounts["Door 2"] === 3 && obstacleCounts["Stage"] === 3 && obstacleCounts["Ramp"] === 3) {
       setBoogie(true);
       setPoints(points + 4)
     } else {
@@ -91,7 +91,7 @@ function Dashboard(props) {
 
       </View>
       <View style={{ flex: 0.15, flexDirection: "row", borderWidth: 0, justifyContent: "center", alignItems: "center" }}>
-        <TouchableOpacity style={{ backgroundColor: (boogie ? "#1bf2e4" : "#c2179d"), borderRadius: "20%", justifyContent: "center", alignItems: "center", marginHorizontal: "2%", height: "60%", width: "20%" }} onPress={() => {
+        <TouchableOpacity style={{ backgroundColor: (boogie ? "#1bf2e4" : "#c2179d"), borderRadius: "20%", justifyContent: "center", alignItems: "center", marginHorizontal: "2%", height: "60%", width: "15%" }} onPress={() => {
           if (obstacleCounts["Dance Floor"] < 3) {
             setPoints(points + 2);
             setObstacleCounts({ ...obstacleCounts, "Dance Floor": obstacleCounts["Dance Floor"] + 1 });
@@ -100,7 +100,7 @@ function Dashboard(props) {
           }
         }}><Text style={{ fontSize: 20 }}>Dance Floor</Text><Text>{boogie ? "Boogie!" : obstacleCounts["Dance Floor"]}</Text></TouchableOpacity>
 
-        <TouchableOpacity style={{ backgroundColor: boogie ? "#1bf2e4" : "#c2179d", borderRadius: "20%", justifyContent: "center", alignItems: "center", marginHorizontal: "2%", height: "60%", width: "20%" }} onPress={() => {
+        <TouchableOpacity style={{ backgroundColor: boogie ? "#1bf2e4" : "#c2179d", borderRadius: "20%", justifyContent: "center", alignItems: "center", marginHorizontal: "2%", height: "60%", width: "15%" }} onPress={() => {
           if (obstacleCounts["Door 1"] < 3) {
 
             setPoints(points + 2);
@@ -110,7 +110,7 @@ function Dashboard(props) {
           }
         }}><Text style={{ fontSize: 20 }}>Door 1</Text><Text>{boogie ? "Boogie!" : obstacleCounts["Door 1"]}</Text></TouchableOpacity>
 
-        <TouchableOpacity style={{ backgroundColor: boogie ? "#1bf2e4" : "#c2179d", borderRadius: "20%", justifyContent: "center", alignItems: "center", marginHorizontal: "2%", height: "60%", width: "20%" }} onPress={() => {
+        <TouchableOpacity style={{ backgroundColor: boogie ? "#1bf2e4" : "#c2179d", borderRadius: "20%", justifyContent: "center", alignItems: "center", marginHorizontal: "2%", height: "60%", width: "15%" }} onPress={() => {
           if (obstacleCounts["Door 2"] < 3) {
 
             setPoints(points + 2);
@@ -120,7 +120,7 @@ function Dashboard(props) {
           }
         }}><Text style={{ fontSize: 20 }}>Door 2</Text><Text>{boogie ? "Boogie!" : obstacleCounts["Door 2"]}</Text></TouchableOpacity>
 
-        <TouchableOpacity style={{ backgroundColor: boogie ? "#1bf2e4" : "#c2179d", borderRadius: "20%", justifyContent: "center", alignItems: "center", marginHorizontal: "2%", height: "60%", width: "20%" }} onPress={() => {
+        <TouchableOpacity style={{ backgroundColor: boogie ? "#1bf2e4" : "#c2179d", borderRadius: "20%", justifyContent: "center", alignItems: "center", marginHorizontal: "2%", height: "60%", width: "15%" }} onPress={() => {
           if (obstacleCounts["Stage"] < 3) {
 
             setPoints(points + 2);
@@ -129,6 +129,16 @@ function Dashboard(props) {
 
           }
         }}><Text style={{ fontSize: 20 }}>Stage</Text><Text>{boogie ? "Boogie!" : obstacleCounts["Stage"]}</Text></TouchableOpacity>
+
+        <TouchableOpacity style={{ backgroundColor: boogie ? "#1bf2e4" : "#c2179d", borderRadius: "20%", justifyContent: "center", alignItems: "center", marginHorizontal: "2%", height: "60%", width: "15%" }} onPress={() => {
+          if (obstacleCounts["Ramp"] < 3) {
+
+            setPoints(points + 2);
+            setObstacleCounts({ ...obstacleCounts, "Ramp": obstacleCounts["Ramp"] + 1 });
+            setActions([...actions, "Ramp"])
+
+          }
+        }}><Text style={{ fontSize: 20 }}>Ramp</Text><Text>{boogie ? "Boogie!" : obstacleCounts["Ramp"]}</Text></TouchableOpacity>
       </View>
 
       <View style={{ flex: 0.25 }}>
@@ -174,6 +184,10 @@ function Dashboard(props) {
                 setPoints(points - 2);
                 setObstacleCounts({ ...obstacleCounts, "Stage": obstacleCounts["Stage"] - 1 });
                 break;
+              case "Ramp":
+                setPoints(points - 2);
+                setObstacleCounts({ ...obstacleCounts, "Ramp": obstacleCounts["Ramp"] - 1 });
+                break;
 
 
             }
@@ -181,7 +195,7 @@ function Dashboard(props) {
           }}><Text style={{ fontSize: 20 }}>Undo</Text></TouchableOpacity>
           <TouchableOpacity style={{ backgroundColor: "#f2a435", borderRadius: "20%", justifyContent: "center", alignItems: "center", marginHorizontal: "5%", height: "90%", width: "30%" }} onPress={() => {
             setActions([]);
-            setObstacleCounts({ "Dance Floor": 0, "Door 1": 0, "Door 2": 0, "Stage": 0 })
+            setObstacleCounts({ "Dance Floor": 0, "Door 1": 0, "Door 2": 0, "Stage": 0, "Ramp": 0 })
             setEndgameState(0);
             setPoints(0);
 
